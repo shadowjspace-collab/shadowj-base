@@ -1,97 +1,77 @@
 {{ define "main" }}
 
-<!-- ✅ 본문 상단 섹션목록 (원래 있던 느낌 복구) -->
-<nav class="section-top-nav" aria-label="Section list">
-  <a href="/beginning/">첫글부터 보기</a>
-  <a href="/humanities/">인문학</a>
-  <a href="/politics/">정치학</a>
-  <a href="/economics/">경제학</a>
-  <a href="/psychology/">실미학</a>
-  <a href="/commentary/">시사논평</a>
-  <a href="/reading-notes/">독서노트</a>
-  <a href="/personal/">개인기록</a>
-</nav>
+<header class="section-head">
+  <h1 class="section-title">{{ .Title }}</h1>
+  {{ with .Params.description }}
+    <p class="section-desc">{{ . }}</p>
+  {{ end }}
+</header>
 
-{{ $pages := .Pages }}
-
-<!-- ✅ beginning(첫글부터)만 oldest(오름차순), 나머지는 newest(내림차순) -->
-{{ if eq .Section "beginning" }}
-  {{ $pages = .Pages.ByDate }}
-{{ else }}
-  {{ $pages = .Pages.ByDate.Reverse }}
-{{ end }}
+{{ $pages := .RegularPages }}
 
 {{ if $pages }}
-
-  {{ range $pages }}
-
-    <a href="{{ .RelPermalink }}" class="post-card">
-      <article>
-
-        <h2 class="post-title">
-          {{ .Title }}
-        </h2>
+  {{ range $pages.ByDate.Reverse }}
+    <a href="{{ .RelPermalink }}" class="post-card" aria-label="{{ .Title }}">
+      <article class="post-inner">
+        <h2 class="post-title">{{ .Title }}</h2>
 
         {{ with .Summary }}
-          <p class="post-summary">
-            {{ . }}
-          </p>
+          <p class="post-summary">{{ . }}</p>
         {{ end }}
 
-        <div class="post-meta">
-          {{ .Date.Format "2006-01-02" }}
-        </div>
-
+        <div class="post-meta">{{ .Date.Format "2006-01-02" }}</div>
       </article>
     </a>
-
   {{ end }}
-
 {{ else }}
-
   <p>아직 글이 없습니다.</p>
-
 {{ end }}
 
 <style>
-/* ===== 본문 상단 섹션목록 ===== */
-.section-top-nav{
-  margin: 18px 0 28px 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px 14px;
+/* ===== Section title ===== */
+.section-head{
+  margin: 0 0 22px 0;
 }
-.section-top-nav a{
-  text-decoration: none;
-  color: inherit;
-  opacity: 0.9;
+.section-title{
+  font-size: 2rem;
+  line-height: 1.2;
+  margin: 0 0 6px 0;
 }
-.section-top-nav a:hover{
-  opacity: 1;
-  text-decoration: underline;
+.section-desc{
+  margin: 0;
+  opacity: 0.8;
+  line-height: 1.6;
 }
 
-/* ===== Section list card ===== */
+/* ===== Post card (whole area clickable) ===== */
 .post-card{
   display: block;
   text-decoration: none;
   color: inherit;
-  margin-bottom: 28px;
+  padding: 0;
+  margin: 0 0 28px 0;
 }
 .post-card:hover{
   opacity: 0.95;
 }
+
+.post-inner{
+  display: block;
+}
+
 .post-title{
   font-size: 1.6rem;
   line-height: 1.3;
   margin: 0 0 6px 0;
 }
+
 .post-summary{
   font-size: 1rem;
   line-height: 1.6;
   opacity: 0.9;
   margin: 0 0 6px 0;
 }
+
 .post-meta{
   font-size: 12px;
   opacity: 0.6;
