@@ -2,16 +2,15 @@
 
 <h1 class="section-title">{{ .Title }}</h1>
 
-{{ $pages := where .Site.RegularPages "Section" "ne" "list" }}
+{{ $pages := site.RegularPages }}
+{{ $pages = where $pages "Section" "ne" "list" }}
 {{ $pages = where $pages "Section" "ne" "beginning" }}
 
 {{ if $pages }}
 
-  {{ range sort $pages "Date" "asc" }}
-
+  {{ range (sort $pages "Date" "asc") }}
     <a href="{{ .RelPermalink }}" class="post-card">
       <article>
-
         <h2 class="post-title">{{ .Title }}</h2>
 
         {{ with .Summary }}
@@ -19,16 +18,12 @@
         {{ end }}
 
         <div class="post-meta">{{ .Date.Format "2006-01-02" }}</div>
-
       </article>
     </a>
-
   {{ end }}
 
 {{ else }}
-
   <p>아직 글이 없습니다.</p>
-
 {{ end }}
 
 <style>
