@@ -1,0 +1,14 @@
+{{ define "main" }}
+  <main class="wrap">
+    <h1>첫글부터</h1>
+
+    <ul>
+      {{ range .Site.RegularPages.ByDate }}
+        <li>
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          {{ with .Date }} <small> — {{ .Format "2006-01-02" }}</small>{{ end }}
+        </li>
+      {{ end }}
+    </ul>
+  </main>
+{{ end }}
