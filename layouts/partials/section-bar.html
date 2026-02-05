@@ -137,7 +137,7 @@
   }
 
   /* =========================================================
-     Search overlay
+     Search overlay (단어검색만 / 제목 리스트만)
   ========================================================= */
   .search-overlay{
     display: none;
@@ -179,8 +179,8 @@
     padding: 0;
   }
 
-  .search-overlay .so-item,
-  .search-overlay .so-suggest{
+  /* 결과 항목(제목 리스트) */
+  .search-overlay .so-item{
     display: block;
     width: 100%;
     text-align: left;
@@ -195,13 +195,11 @@
     font: inherit;
   }
 
-  .search-overlay .so-item:first-child,
-  .search-overlay .so-suggest:first-child{
+  .search-overlay .so-item:first-child{
     border-top: 0;
   }
 
-  .search-overlay .so-item:hover,
-  .search-overlay .so-suggest:hover{
+  .search-overlay .so-item:hover{
     background: #161616;
   }
 
@@ -236,7 +234,7 @@
         <div class="sb-btn__ko">섹션선택</div>
       </button>
 
-      <!-- ✅ 메뉴는 params.section_menu "하나"만 읽는다 (중복 방지) -->
+      <!-- 메뉴는 params.section_menu "하나"만 읽는다 (중복 방지) -->
       <div class="section-overlay" id="sectionOverlay" aria-hidden="true">
         {{- $menu := .Site.Params.section_menu -}}
         {{- if $menu -}}
@@ -267,6 +265,7 @@
         aria-controls="searchOverlay"
       />
 
+      <!-- 단어검색만: 헤더 + 결과 리스트만 -->
       <div class="search-overlay" id="searchOverlay" aria-hidden="true">
         <div class="so-head" id="searchOverlayHead">Search</div>
         <div class="so-list" id="searchOverlayList"></div>
