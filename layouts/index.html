@@ -1,37 +1,14 @@
 {{ define "main" }}
-  <main class="wrap home-feed">
+  <main class="wrap">
+    <h1>Home</h1>
 
-    <h1 class="home-title">Home</h1>
-    <div class="home-subtitle">Latest posts (full text feed)</div>
-
-    {{/* 홈피드에 포함할 섹션(5개)만 제한 */}}
-    {{ $sections := slice "power-system" "human-behavior" "reflections" "notes-on-living" "notes-sparks" }}
-
-    {{/* 위 5개 섹션 글만 모아서 최신순 10개 */}}
-    {{ $posts := where .Site.RegularPages "Section" "in" $sections }}
-    {{ $posts = first 10 ($posts.ByDate.Reverse) }}
-
-    {{ range $p := $posts }}
-      <article class="feed-item">
-        <h2 class="feed-title">
-          <a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a>
-        </h2>
-
-        <div class="feed-meta">
-          {{/* 리즈닝타입 (키 이름이 뭐든 최대한 안전하게 잡기) */}}
-          {{ with $p.Params.reasoning }}<span class="feed-reasoning">{{ . }}</span>{{ end }}
-          {{ with $p.Params.reasoning_type }}<span class="feed-reasoning">{{ . }}</span>{{ end }}
-          {{ with $p.Params.reasoningType }}<span class="feed-reasoning">{{ . }}</span>{{ end }}
-
-          <span class="feed-date">{{ $p.Date.Format "2006-01-02" }}</span>
-        </div>
-
-        <div class="feed-body">
-          {{ $p.Content }}
-        </div>
-
-      </article>
-    {{ end }}
-
+    <ul>
+      {{ range .Site.RegularPages.ByDate.Reverse }}
+        <li>
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          {{ with .Date }} <small> — {{ .Format "2006-01-02" }}</small>{{ end }}
+        </li>
+      {{ end }}
+    </ul>
   </main>
 {{ end }}
