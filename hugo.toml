@@ -1,25 +1,25 @@
 baseURL = "/"
 languageCode = "ko-kr"
-title = "My Notes"
+title = "Shadow J."
 enableRobotsTXT = true
 
 [pagination]
-  pageSize = 20
+  pageSize = 10
 
 [params]
-  subtitle_en = ""
-  subtitle_ko = ""
+  subtitle_en = "Independent notes on systems, power, and human behavior"
+  subtitle_ko = "시스템, 권력 그리고 인간 행동에 관한 독립적 기록"
 
   # =========================
   # Section menu (editable)
-  # - 일반인용 기본 9개 + (Home은 고정)
-  # - slug = URL path (e.g., /economics/)
+  # - ONLY this block controls the Section dropdown
+  # - slug = URL path (e.g., /humanities/)
   # =========================
 
   [[params.section_menu]]
     name_ko = "전체글"
-    name_en = "All"
-    slug = "all"
+    name_en = "All Posts"
+    slug = "list"
 
   [[params.section_menu]]
     name_ko = "첫글부터"
@@ -66,6 +66,6 @@ enableRobotsTXT = true
     [markup.goldmark.renderer]
       unsafe = true
 
-# 검색 인덱스(옵션). 보급형 1차에서도 유지해도 되지만, 검색 UI 붙일 때만 의미 있음.
+# 검색 인덱스용 (Home에서 /index.json 생성)
 [outputs]
   home = ["HTML", "JSON"]
