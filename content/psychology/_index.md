@@ -1,5 +1,5 @@
 ---
 title: "심리학"
-type: "section"
-outputs: ["HTML"]
+date: 2026-02-06
+draft: false
 ---
